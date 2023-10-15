@@ -453,6 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683ad98de4a145741acae4133e76251c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
   speed: 40
 --- !u!114 &835818923
 MonoBehaviour:
@@ -573,6 +574,7 @@ MonoBehaviour:
   jumpForce: 10
   gravityModifier: 1.5
   isOnGround: 1
+  gameOver: 0
 --- !u!54 &1186858254
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -635,7 +637,7 @@ GameObject:
   - component: {fileID: 2014335012}
   m_Layer: 9
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
