@@ -48,11 +48,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isDashed = true;
-            
-            
+            playerAnim.SetFloat("Speed_Multiplier", 1.5f);
         } else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             isDashed = false;
+            playerAnim.SetFloat("Speed_Multiplier", 1.0f);
         }
     }
     private void OnCollisionEnter(Collision collision)
