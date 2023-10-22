@@ -45,16 +45,14 @@ public class PlayerController : MonoBehaviour
     }
     private void dash()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isDashed = true;
-        } else
+            
+            
+        } else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             isDashed = false;
-        }
-        if(isDashed)
-        {
-            
         }
     }
     private void OnCollisionEnter(Collision collision)

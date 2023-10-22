@@ -20,6 +20,13 @@ public class MoveLeft : MonoBehaviour
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }
+        if (player.isDashed)
+        {
+            speed = 60;
+        } else
+        {
+            speed = 40;
+        }
         if (gameObject.CompareTag("Obstacles") && transform.position.x < leftBound)
         {
             Destroy(gameObject);
