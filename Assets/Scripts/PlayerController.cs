@@ -12,24 +12,40 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip crashSound;
     private AudioSource playerAudio;
+    private AudioSource backGroundAudio;
     public float jumpForce = 10f;
     public float gravityModifier;
     private float jumpedTime = 1;
+    private float startSpeed = 9f;
     public bool isOnGround = true;
     public bool gameOver = false;
     public bool isDashed = false;
+    public bool isStarted = false;
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         playerRb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
+        backGroundAudio = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         Physics.gravity *= gravityModifier;
+        playerAnim.SetFloat("Speed_f", 0.3f);
+        backGroundAudio.Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(transform.position.x >= -2 && !isStarted)
+        {
+            isStarted = true;
+            backGroundAudio.Play();
+            playerAnim.SetFloat("Speed_f", 1f);
+            playerAnim.SetBool("Static_b", false);
+        } else if (!isStarted)
+        {
+            transform.Translate(Vector3.forward*Time.deltaTime*startSpeed);
+        }
         dash();
         if(Input.GetKeyDown(KeyCode.Space) && jumpedTime >= 0 && !gameOver)
         {
@@ -45,11 +61,11 @@ public class PlayerController : MonoBehaviour
     }
     private void dash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isStarted)
         {
             isDashed = true;
             playerAnim.SetFloat("Speed_Multiplier", 1.5f);
-        } else if (Input.GetKeyUp(KeyCode.LeftShift))
+        } else if (Input.GetKeyUp(KeyCode.LeftShift) && isStarted)
         {
             isDashed = false;
             playerAnim.SetFloat("Speed_Multiplier", 1.0f);
@@ -64,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 dirtParticle.Play();
                 jumpedTime = 1;
             }
-            isOnGround =true;
+            isOnGround = true;
         } else if(collision.gameObject.CompareTag("Obstacles"))
         {
             playerAnim.SetBool("Death_b",true);

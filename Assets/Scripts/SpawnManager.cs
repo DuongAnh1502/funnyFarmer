@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
     void SpawnObstacle()
     {
         GameObject obstacle = obstacles[Random.Range(0,obstacles.Length)];
-        if(!playerController.gameOver)
+        if(!playerController.gameOver && playerController.isStarted)
         {
             Instantiate(obstacle, spawnPosition, obstacle.transform.rotation);
         }

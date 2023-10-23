@@ -13,15 +13,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!playerController.gameOver)
+        if(!playerController.gameOver && playerController.isStarted)
         {
             Debug.Log("Score : "+point);
-        }
-        if (playerController.isDashed)
-        {
-            point += 2;
-        } else {
-            point += 1;
+            if (playerController.isDashed)
+            {
+                point += 2;
+            }
+            else
+            {
+                point += 1;
+            }
         }
     }
 }
